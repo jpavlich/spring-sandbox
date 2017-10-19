@@ -36,7 +36,7 @@ public class RESTAuthenticationProvider implements AuthenticationProvider {
 	private User findUser(String username) {
 		// TODO En este método debería recuperarlse la info del usuario desde la base de datos
 		if (username.equals("user")) {
-			return new User("user", "userPass");
+			return new User("user", "password");
 		} else {
 			return null;
 		}

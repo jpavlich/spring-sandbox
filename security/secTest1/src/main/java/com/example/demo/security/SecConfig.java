@@ -20,6 +20,9 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
 	
+	@Autowired
+	private RESTLogoutSuccessHandler logoutSuccessHandler;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -35,7 +38,8 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 					.successHandler(authenticationSuccessHandler)
 					.failureHandler(new SimpleUrlAuthenticationFailureHandler())
 			.and()
-				.logout();				
+				.logout()
+					.logoutSuccessHandler(logoutSuccessHandler);				
 		
 		http.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
@@ -45,6 +49,8 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider);
 	}
+	
+	 
 
 	
 }
