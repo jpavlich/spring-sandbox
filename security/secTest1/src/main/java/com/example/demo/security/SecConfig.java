@@ -5,6 +5,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -22,6 +23,9 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private RESTLogoutSuccessHandler logoutSuccessHandler;
+
+	@Autowired
+	private RESTUserDetailsService userDetailsService;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -39,7 +43,8 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 					.failureHandler(new SimpleUrlAuthenticationFailureHandler())
 			.and()
 				.logout()
-					.logoutSuccessHandler(logoutSuccessHandler);				
+					.logoutSuccessHandler(logoutSuccessHandler);
+				
 		
 		http.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
@@ -49,6 +54,13 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider);
 	}
+
+	@Override
+	public UserDetailsService userDetailsServiceBean() throws Exception {
+		return userDetailsService;
+	}
+
+
 	
 	 
 

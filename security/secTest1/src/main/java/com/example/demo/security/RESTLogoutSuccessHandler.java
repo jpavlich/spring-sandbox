@@ -23,7 +23,7 @@ public class RESTLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 			throws IOException, ServletException {
 
 		String targetUrl = determineTargetUrl(request, response);
-
+		
 		if (response.isCommitted()) {
 			logger.debug("Response has already been committed. Unable to redirect to "
 					+ targetUrl);

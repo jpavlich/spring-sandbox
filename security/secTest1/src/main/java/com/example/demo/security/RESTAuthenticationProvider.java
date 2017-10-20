@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,10 @@ import com.example.demo.model.User;
 @Component
 public class RESTAuthenticationProvider implements AuthenticationProvider {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private RESTUserDetailsService userDetailsService;
+	
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -23,7 +28,7 @@ public class RESTAuthenticationProvider implements AuthenticationProvider {
 
 		logger.info("Name = " + name + " ,Password = " + password);
 
-		User user = findUser(name);
+		User user = userDetailsService.loadUserByUsername(name);
 		if (user != null && password.equals(user.getPassword())) {
 			logger.info("Succesful authentication!");
 			return new UsernamePasswordAuthenticationToken(user, user.getPassword(), new ArrayList<>());
@@ -32,15 +37,9 @@ public class RESTAuthenticationProvider implements AuthenticationProvider {
 			return null;
 		}
 	}
+	
+	
 
-	private User findUser(String username) {
-		// TODO En este método debería recuperarlse la info del usuario desde la base de datos
-		if (username.equals("user")) {
-			return new User("user", "password");
-		} else {
-			return null;
-		}
-	}
 
 	@Override
 	public boolean supports(Class<?> authentication) {
