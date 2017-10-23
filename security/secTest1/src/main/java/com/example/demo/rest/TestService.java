@@ -13,7 +13,7 @@ import com.example.demo.model.User;
 public class TestService {
 	@RequestMapping(value = "/test", produces = "application/json")
 	public String test() {
-		return "{'value': 'ok'}";
+		return "{\"value\": \"ok\"}";
 	}
 	
 	@RequestMapping(value = "/current-user", method = RequestMethod.GET, produces="application/json")
