@@ -48,9 +48,6 @@
     RequestDispatcher reqDisp =  request.getRequestDispatcher("REGISTRATION_PAGE");
 	System.out.println(httpsession.getCreationTime());
 	System.out.println(reqDisp.toString());*/
-	
-	System.out.println("1 "+request.getSession().getServletContext().toString());
-	System.out.println("2 "+request.getSession().getServletContext().getContextPath());
 	//System.out.println(request.getSession().toString());
 	    final String reportPath = request.getSession().getServletContext().getRealPath("/reports/Master-Detail.mrt");
 	    final String savePath = request.getSession().getServletContext().getRealPath("\\/reports\\/");
