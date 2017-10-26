@@ -10,4 +10,16 @@ public class PublicTestService {
 	public String test() {
 		return "{'value': 'ok'}";
 	}
+	
+	 @RequestMapping(value = "/index.jsp")
+	 public String index() {
+		 return "index";
+	 }
+	@RequestMapping(value = "/report_viewer.jsp")
+	public String viewer() {
+	    return "report_viewer";
+	}
+
+
+	
 }
