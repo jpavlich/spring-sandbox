@@ -1,0 +1,158 @@
+##########
+Request GET
+receive GET notification for /index.jsp
+ 
+
+ Headers
+host = localhost:8080
+connection = keep-alive
+cache-control = max-age=0
+user-agent = Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+upgrade-insecure-requests = 1
+accept = text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+accept-encoding = gzip, deflate, br
+accept-language = es-419,es;q=0.8
+cookie = JSESSIONID=950A53AF0D67A01A50F19550E28DB97D; StimulsoftMobileDesignerLastTabOnPropertiesPanel=Properties; SESSION=46453b85-e4db-47ca-9550-9372796d8634
+
+
+Parameters
+
+
+ Row data
+2017-10-26 11:28:38.433  WARN 4188 --- [nio-8080-exec-8] java.util.prefs                          : Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+##########
+Request GET
+receive GET notification for /stimulsoft_webdesigner_action
+ 
+
+ Headers
+host = localhost:8080
+connection = keep-alive
+user-agent = Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+accept = image/webp,image/apng,image/*,*/*;q=0.8
+referer = http://localhost:8080/index.jsp
+accept-encoding = gzip, deflate, br
+accept-language = es-419,es;q=0.8
+cookie = JSESSIONID=950A53AF0D67A01A50F19550E28DB97D; StimulsoftMobileDesignerLastTabOnPropertiesPanel=Properties; SESSION=46453b85-e4db-47ca-9550-9372796d8634
+
+
+Parameters
+stiweb_component = Designer
+stiweb_version = 2017.2.2.1
+stiweb_action = Resource
+a = DesignerEvent
+stiweb_data = MoveUp.png
+
+
+ Row data
+##########
+Request GET
+receive GET notification for /stimulsoft_webdesigner_action
+ 
+
+ Headers
+host = localhost:8080
+connection = keep-alive
+user-agent = Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+accept = image/webp,image/apng,image/*,*/*;q=0.8
+referer = http://localhost:8080/index.jsp
+accept-encoding = gzip, deflate, br
+accept-language = es-419,es;q=0.8
+cookie = JSESSIONID=950A53AF0D67A01A50F19550E28DB97D; StimulsoftMobileDesignerLastTabOnPropertiesPanel=Properties; SESSION=46453b85-e4db-47ca-9550-9372796d8634
+
+
+Parameters
+stiweb_component = Designer
+stiweb_version = 2017.2.2.1
+stiweb_action = Resource
+a = DesignerEvent
+stiweb_data = MoveDown.png
+
+
+ Row data
+##########
+Request POST
+receive POST notification for /stimulsoft_webdesigner_action
+ 
+
+ Headers
+host = localhost:8080
+connection = keep-alive
+content-length = 529
+origin = http://localhost:8080
+user-agent = Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+content-type = application/json; charset=UTF-8
+accept = */*
+referer = http://localhost:8080/index.jsp
+accept-encoding = gzip, deflate, br
+accept-language = es-419,es;q=0.8
+cookie = JSESSIONID=950A53AF0D67A01A50F19550E28DB97D; SESSION=46453b85-e4db-47ca-9550-9372796d8634; StimulsoftMobileDesignerLastTabOnPropertiesPanel=Properties
+
+
+Parameters
+a = GetReport
+
+
+ Row data
+##########
+Request POST
+receive POST notification for /stimulsoft_webdesigner_action
+ 
+
+ Headers
+host = localhost:8080
+connection = keep-alive
+content-length = 457
+origin = http://localhost:8080
+user-agent = Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+content-type = application/json; charset=UTF-8
+accept = */*
+referer = http://localhost:8080/index.jsp
+accept-encoding = gzip, deflate, br
+accept-language = es-419,es;q=0.8
+cookie = JSESSIONID=950A53AF0D67A01A50F19550E28DB97D; SESSION=46453b85-e4db-47ca-9550-9372796d8634; StimulsoftMobileDesignerLastTabOnPropertiesPanel=Properties
+
+
+Parameters
+a = DesignerEvent
+
+
+ Row data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##########
+Request POST
+receive POST notification for /stimulsoft_webdesigner_action
+ 
+
+ Headers
+host = localhost:8080
+connection = keep-alive
+content-length = 661
+origin = http://localhost:8080
+user-agent = Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+content-type = application/json; charset=UTF-8
+accept = */*
+referer = http://localhost:8080/index.jsp
+accept-encoding = gzip, deflate, br
+accept-language = es-419,es;q=0.8
+cookie = JSESSIONID=950A53AF0D67A01A50F19550E28DB97D; SESSION=46453b85-e4db-47ca-9550-9372796d8634; StimulsoftMobileDesignerLastTabOnPropertiesPanel=Properties
+
+
+Parameters
+a = DesignerEvent
+
+
+ Row data
