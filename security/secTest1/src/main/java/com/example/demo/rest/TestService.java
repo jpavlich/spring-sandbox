@@ -22,5 +22,33 @@ public class TestService {
         User user = (User) authentication.getPrincipal();
         return user;
     }
-	
+	@RequestMapping(value = "/test", produces = "application/xml")
+	public String test2() {
+		return "<service xmlns=\"http://www.w3.org/2007/app\" xmlns:atom=\"http://www.w3.org/2005/Atom\" xml:base=\"http://services.odata.org/V3/(S(p5nseo0mmpccjs4wb0w3bgx2))/OData/OData.svc/\">\n" + 
+				"<workspace>\n" + 
+				"<atom:title>Default</atom:title>\n" + 
+				"<collection href=\"Products\">\n" + 
+				"<atom:title>Products</atom:title>\n" + 
+				"</collection>\n" + 
+				"<collection href=\"ProductDetails\">\n" + 
+				"<atom:title>ProductDetails</atom:title>\n" + 
+				"</collection>\n" + 
+				"<collection href=\"Categories\">\n" + 
+				"<atom:title>Categories</atom:title>\n" + 
+				"</collection>\n" + 
+				"<collection href=\"Suppliers\">\n" + 
+				"<atom:title>Suppliers</atom:title>\n" + 
+				"</collection>\n" + 
+				"<collection href=\"Persons\">\n" + 
+				"<atom:title>Persons</atom:title>\n" + 
+				"</collection>\n" + 
+				"<collection href=\"PersonDetails\">\n" + 
+				"<atom:title>PersonDetails</atom:title>\n" + 
+				"</collection>\n" + 
+				"<collection href=\"Advertisements\">\n" + 
+				"<atom:title>Advertisements</atom:title>\n" + 
+				"</collection>\n" + 
+				"</workspace>\n" + 
+				"</service>";
+	}
 }
