@@ -19,6 +19,10 @@ public class PublicTestService {
 	public String viewer() {
 	    return "report_viewer";
 	}
+	@RequestMapping(value = "/test.jsp")
+	public String test2() {
+	    return "test";
+	}
 
 
 	

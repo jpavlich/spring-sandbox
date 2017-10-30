@@ -128,12 +128,41 @@
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-taglibs</artifactId>
-		    <version>3.1.0.RELEASE</version>
 		    <type>jar</type>
 		    <scope>compile</scope>
 		</dependency>
-	</dependencies>
+		
+		
+		<!--   Apache Olingo Dependecies -->
+		<!-- https://mvnrepository.com/artifact/org.apache.olingo/odata-commons-api -->
+		<dependency>
+   			<groupId>org.apache.olingo</groupId>
+    		<artifactId>odata-commons-api</artifactId>
+    		<version>4.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.olingo/odata-commons-core -->
+			<dependency>
+    		<groupId>org.apache.olingo</groupId>
+    		<artifactId>odata-commons-core</artifactId>
+    		<version>4.4.0</version>
+		</dependency>
 
+	<!-- https://mvnrepository.com/artifact/org.apache.olingo/odata-server-api -->
+		<dependency>
+		    <groupId>org.apache.olingo</groupId>
+		    <artifactId>odata-server-api</artifactId>
+		    <version>4.4.0</version>
+		    <scope>compile</scope>
+		</dependency>
+				<!-- https://mvnrepository.com/artifact/org.apache.olingo/odata-server-core -->
+		<dependency>
+		    <groupId>org.apache.olingo</groupId>
+		    <artifactId>odata-server-core</artifactId>
+		    <version>4.4.0</version>
+		    <scope>runtime</scope>
+		</dependency>
+
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

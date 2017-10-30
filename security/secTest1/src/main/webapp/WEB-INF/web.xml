@@ -6,10 +6,9 @@
         xmlns:web="http://java.sun.com/xml/ns/javaee/webapp_2_5.xsd" 
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
         id="WebApp_ID" version="2.5">
-        
+          
     <display-name>stimulsoft_webdesigner</display-name>
         <welcome-file-list>
-        
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
@@ -35,5 +34,16 @@
     <servlet-mapping>
         <servlet-name>StimulsoftAction</servlet-name>
         <url-pattern>/stimulsoft_webviewer_action</url-pattern>
-    </servlet-mapping> 
+    </servlet-mapping>    
+        
+    <servlet>
+		  <servlet-name>DemoServlet</servlet-name>
+		  <servlet-class> web.DemoServlet</servlet-class>
+		  <load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+	  <servlet-name>DemoServlet</servlet-name>
+	  <url-pattern>/DemoService.svc/*</url-pattern>
+	</servlet-mapping>
 </web-app>

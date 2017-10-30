@@ -30,4 +30,8 @@ public class SecTest1Application extends SpringBootServletInitializer  {
     public ServletRegistrationBean servletRegistrationBean3(){
         return new ServletRegistrationBean(new com.stimulsoft.webviewer.servlet.StiWebViewerActionServlet(),"/stimulsoft_webviewer_action");
     }
+    @Bean
+    public ServletRegistrationBean servletRegistrationBean4(){
+        return new ServletRegistrationBean(new web.DemoServlet(),"/DemoService.svc/*");
+    }
 }
