@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,7 @@ import secTest1.DemoEntityCollectionProcessor;
  * @author EMMANUEL NEIZA
  *
  */
+@WebServlet(urlPatterns={"/DemoService"})
 public class DemoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(DemoServlet.class);
