@@ -1,10 +1,13 @@
 package com.example.demo;
 
+import java.util.Arrays;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
@@ -15,9 +18,18 @@ public class SecTest1Application extends SpringBootServletInitializer  {
 		   return application.sources(application);
 	}
 	public static void main(String[] args) {
-		SpringApplication.run(SecTest1Application.class, args);
+		ApplicationContext ctx=SpringApplication.run(SecTest1Application.class, args);
+		/*System.out.println("List of beans provided by Spring Boot:");
+	        String[] beanNames = ctx.getBeanDefinitionNames();
+	        Arrays.sort(beanNames);
+	        for (String beanName : beanNames) {
+	            System.out.print(beanName);
+	            System.out.print(" ");
+	        }
+
+	        System.out.println("");*/
 	}
-	@Bean
+	@Bean()
     public ServletRegistrationBean servletRegistrationBean(){
         return new ServletRegistrationBean(new com.stimulsoft.web.servlet.StiWebResourceServlet(),"/stimulsoft_web_resource/*");
         

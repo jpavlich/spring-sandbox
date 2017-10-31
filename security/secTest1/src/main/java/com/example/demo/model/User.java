@@ -2,15 +2,26 @@ package com.example.demo.model;
 
 import java.util.Collection;
 
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@Entity(name="user_prueba")
 public class User implements UserDetails {
+	@Id
 	private String username;
+	@Basic
 	private String password;
+	@Basic
 	private boolean accountNonExpired;
+	@Basic
 	private boolean accountNonLocked;
+	@Basic
 	private boolean credentialsNonExpired;
+	@Basic
 	private boolean enabled;
 	
 
