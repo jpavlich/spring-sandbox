@@ -1,7 +1,7 @@
 /**
  * 
  */
-package secTest1;
+package com.example.demo.secTest1;
 
 import java.io.InputStream;
 import java.net.URI;

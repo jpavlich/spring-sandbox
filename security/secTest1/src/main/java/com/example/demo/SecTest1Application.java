@@ -32,6 +32,6 @@ public class SecTest1Application extends SpringBootServletInitializer  {
     }
     @Bean
     public ServletRegistrationBean servletRegistrationBean4(){
-        return new ServletRegistrationBean(new web.DemoServlet(),"/DemoService.svc/*");
+        return new ServletRegistrationBean(new com.example.demo.web.DemoServlet(),"/DemoService.svc/*");
     }
 }

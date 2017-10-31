@@ -1,7 +1,7 @@
 /**
  * 
  */
-package secTest1;
+package com.example.demo.secTest1;
 
 import java.util.ArrayList;
 import java.util.Arrays;

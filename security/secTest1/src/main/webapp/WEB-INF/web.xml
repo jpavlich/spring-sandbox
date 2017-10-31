@@ -38,7 +38,7 @@
         
     <servlet>
 		  <servlet-name>DemoServlet</servlet-name>
-		  <servlet-class> web.DemoServlet</servlet-class>
+		  <servlet-class> com.example.demo.web.DemoServlet</servlet-class>
 		  <load-on-startup>1</load-on-startup>
 	</servlet>
 
