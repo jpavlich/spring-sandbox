@@ -1,7 +1,7 @@
 /**
  * 
  */
-package web;
+package com.example.demo.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ import org.apache.olingo.server.api.ServiceMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import secTest1.DemoEdmProvider;
-import secTest1.DemoEntityCollectionProcessor;
+import com.example.demo.secTest1.DemoEdmProvider;
+import com.example.demo.secTest1.DemoEntityCollectionProcessor;
 
 /**
  * @author EMMANUEL NEIZA

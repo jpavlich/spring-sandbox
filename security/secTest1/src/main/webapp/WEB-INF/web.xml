@@ -38,7 +38,7 @@
         
     <servlet>
 		  <servlet-name>DemoServlet</servlet-name>
-		  <servlet-class> web.DemoServlet</servlet-class>
+		  <servlet-class> com.example.demo.web.DemoServlet </servlet-class> 
 		  <load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -46,23 +46,17 @@
 	  <url-pattern>/DemoService.svc/*</url-pattern>
 	</servlet-mapping>
 	
-	
-	<servlet>
-	    <servlet-name>ODataServlet</servlet-name>
-	    <servlet-class>org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet</servlet-class>
-	    <init-param>
-	      <param-name>javax.ws.rs.Application</param-name>
-	      <param-value>org.apache.olingo.odata2.core.rest.app.ODataApplication</param-value>
-	    </init-param>
-	    <init-param>
-	      <param-name>org.apache.olingo.odata2.service.factory</param-name>
-	      <param-value>main.EmployeeListServiceFactory</param-value>
-	    </init-param>
-	   		 <load-on-startup>1</load-on-startup>
-	</servlet>
-	
 	<servlet-mapping>
 	    <servlet-name>ODataServlet</servlet-name>
 	    <url-pattern>/emplist.svc/*</url-pattern>
+	</servlet-mapping>
+	    <servlet>
+		  <servlet-name>oDataServlet</servlet-name>
+		  <servlet-class> com.example.demo.web.OdataServlet </servlet-class> 
+		  <load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>oDataServlet</servlet-name>
+	  <url-pattern>/example.svc/*</url-pattern>
 	</servlet-mapping>
 </web-app>

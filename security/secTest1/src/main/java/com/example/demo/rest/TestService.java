@@ -1,5 +1,8 @@
 package com.example.demo.rest;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +14,8 @@ import com.example.demo.model.User;
 @RestController()
 @RequestMapping("/api")
 public class TestService {
-	@RequestMapping(value = "/test", produces = "application/json")
+
+	@RequestMapping(value = "/test1", produces = "application/json")
 	public String test() {
 		return "{\"value\": \"ok\"}";
 	}

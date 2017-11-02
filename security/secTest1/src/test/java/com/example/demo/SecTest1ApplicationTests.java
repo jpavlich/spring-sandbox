@@ -23,9 +23,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 // ver https://docs.spring.io/spring-security/site/docs/current/reference/html/test-mockmvc.html
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = SecTest1Application.class)
-@AutoConfigureMockMvc
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = SecTest1Application.class)
+//@AutoConfigureMockMvc
 public class SecTest1ApplicationTests {
 	@Autowired
 	private WebApplicationContext context;

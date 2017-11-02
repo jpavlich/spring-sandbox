@@ -24,7 +24,7 @@ public class User implements UserDetails {
 	@Basic
 	private boolean enabled;
 	
-
+	public User() {}
 	public User(String username, String password) {
 		super();
 		this.username = username;
