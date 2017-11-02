@@ -9,12 +9,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
 import { HotTableModule } from 'ng2-handsontable';
+import { ReporteComponent } from './reporte/reporte.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SpreadsheetComponent,
-    LoginComponent
+    LoginComponent,
+    ReporteComponent
 ],
   imports: [
     BrowserModule,
