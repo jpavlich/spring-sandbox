@@ -1,0 +1,13 @@
+version: '3.2'
+services:
+  jenkins:
+    build: ./jenkins
+    ports:
+     - "8080:8080"
+     - "50000:50000"
+    image: jenkins:latest
+    volumes: 
+     - jenkins_home:/var/jenkins_home
+volumes: 
+  jenkins_home:
+    
