@@ -4,18 +4,14 @@
 package com.example.demo.secTest1;
 
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.olingo.commons.api.data.ContextURL;
 import org.apache.olingo.commons.api.data.Entity;
 import org.apache.olingo.commons.api.data.EntityCollection;
 import org.apache.olingo.commons.api.data.Property;
-import org.apache.olingo.commons.api.data.ValueType;
 import org.apache.olingo.commons.api.edm.EdmEntitySet;
 import org.apache.olingo.commons.api.edm.EdmEntityType;
-import org.apache.olingo.commons.api.ex.ODataRuntimeException;
 import org.apache.olingo.commons.api.format.ContentType;
 import org.apache.olingo.commons.api.http.HttpHeader;
 import org.apache.olingo.commons.api.http.HttpStatusCode;
@@ -28,48 +24,53 @@ import org.apache.olingo.server.api.ServiceMetadata;
 import org.apache.olingo.server.api.processor.EntityCollectionProcessor;
 import org.apache.olingo.server.api.serializer.EntityCollectionSerializerOptions;
 import org.apache.olingo.server.api.serializer.ODataSerializer;
-import org.apache.olingo.server.api.serializer.SerializerException;
 import org.apache.olingo.server.api.serializer.SerializerResult;
 import org.apache.olingo.server.api.uri.UriInfo;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.demo.controller.EntidadNuevaController;
+import com.example.demo.model.EntidadNueva;
+import com.example.demo.repo.EntidadNuevaRepo;
 
 /**
- * @author EMMANUEL NEIZA
+ * @author Emmanuel Neiza
  *
  */
-public class DemoEntityCollectionProcessor implements EntityCollectionProcessor {
+public class DBEntityCollectionProcessor implements EntityCollectionProcessor {
 	private OData odata;
 	private ServiceMetadata serviceMetadata;
-
+	@Autowired
+	EntidadNuevaRepo entidadRepo;
 	/* (non-Javadoc)
 	 * @see org.apache.olingo.server.api.processor.Processor#init(org.apache.olingo.server.api.OData, org.apache.olingo.server.api.ServiceMetadata)
 	 */
 	@Override
 	public void init(OData odata, ServiceMetadata serviceMetadata) {
+		// TODO Auto-generated method stub
 		this.odata = odata;
 		this.serviceMetadata = serviceMetadata;
-
 	}
-
-	
 
 	/* (non-Javadoc)
 	 * @see org.apache.olingo.server.api.processor.EntityCollectionProcessor#readEntityCollection(org.apache.olingo.server.api.ODataRequest, org.apache.olingo.server.api.ODataResponse, org.apache.olingo.server.api.uri.UriInfo, org.apache.olingo.commons.api.format.ContentType)
 	 */
 	@Override
 	public void readEntityCollection(ODataRequest request, ODataResponse response, UriInfo uriInfo, ContentType responseFormat)
-			throws ODataApplicationException, ODataLibraryException,SerializerException  {
-		 // 1st we have retrieve the requested EntitySet from the uriInfo object (representation of the parsed service URI)
+			throws ODataApplicationException, ODataLibraryException {
 		  List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
 		  UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(0); // in our example, the first segment is the EntitySet
 		  EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
 
 		  // 2nd: fetch the data from backend for this requested EntitySetName
 		  // it has to be delivered as EntitySet object
-		  EntityCollection entitySet = getData(edmEntitySet);
+		 
+		  EntityCollection entitySet = getData("");
+		  System.out.println("Estoy Aca"+entitySet.toString());
 		  // 3rd: create a serializer based on the requested format (json)
 		  ODataSerializer serializer = odata.createSerializer(responseFormat);
+
 		  // 4th: Now serialize the content: transform from the EntitySet object to InputStream
 		  EdmEntityType edmEntityType = edmEntitySet.getEntityType();
 		  ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).build();
@@ -85,47 +86,42 @@ public class DemoEntityCollectionProcessor implements EntityCollectionProcessor 
 		  response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
 
 	}
+
 	
+
+	// loop over List<Foo> converting each instance of Foo into and Olingo Entity 
+	private EntityCollection makeEntityCollection(List<EntidadNueva> fooList){
+	    EntityCollection entitySet = new EntityCollection();
+
+	    for (EntidadNueva foo: fooList){
+	        entitySet.getEntities().add(createEntity(foo));
+	    }
+
+	    return entitySet;
+	} 
+	 // Convert instance of Foo object into an Olingo Entity
+	 private Entity createEntity(EntidadNueva foo){
+	    Entity tmpEntity = new Entity()
+	            .addProperty(new Property("int","id"))
+	            .addProperty(new Property("string","name"))
+	            .addProperty(new Property("string","lastname"));
+	    return tmpEntity;
+	}
+	 private List<EntidadNueva> getAllFoos(){
+		 System.out.println("Antes");
+		 EntidadNuevaController ex = null;
 	
+		 List<EntidadNueva> foos =entidadRepo.findAll();
+		 System.out.println(foos.toString());
+		 return foos;
+	 }
 
-	private EntityCollection getData(EdmEntitySet edmEntitySet) {
-		  EntityCollection productsCollection = new EntityCollection();
-		   // check for which EdmEntitySet the data is requested
-		   if(DemoEdmProvider.ES_PRODUCTS_NAME.equals(edmEntitySet.getName())) {
-		       List<Entity> productList = productsCollection.getEntities();
-		       // add some sample product entities
-		       final Entity e1 = new Entity()
-		          .addProperty(new Property(null, "ID", ValueType.PRIMITIVE, 1))
-		          .addProperty(new Property(null, "Name", ValueType.PRIMITIVE, "Notebook Basic 15"))
-		          .addProperty(new Property(null, "Description", ValueType.PRIMITIVE,
-		              "Notebook Basic, 1.7GHz - 15 XGA - 1024MB DDR2 SDRAM - 40GB"));
-		      e1.setId(createId("Products", 1));
-		      productList.add(e1);
-		      final Entity e2 = new Entity()
-		          .addProperty(new Property(null, "ID", ValueType.PRIMITIVE, 2))
-		          .addProperty(new Property(null, "Name", ValueType.PRIMITIVE, "1UMTS PDA"))
-		          .addProperty(new Property(null, "Description", ValueType.PRIMITIVE,
-		              "Ultrafast 3G UMTS/HSDPA Pocket PC, supports GSM network"));
-		      e2.setId(createId("Products", 1));
-		      productList.add(e2);
-
-		      final Entity e3 = new Entity()
-		          .addProperty(new Property(null, "ID", ValueType.PRIMITIVE, 3))
-		          .addProperty(new Property(null, "Name", ValueType.PRIMITIVE, "Ergo Screen"))
-		          .addProperty(new Property(null, "Description", ValueType.PRIMITIVE,
-		              "19 Optimum Resolution 1024 x 768 @ 85Hz, resolution 1280 x 960"));
-		      e3.setId(createId("Products", 1));
-		      productList.add(e3);
-		   }
-		   return productsCollection;
-	}
-
-	private URI createId(String entitySetName, Object id) {
-		  try {
-		        return new URI(entitySetName + "(" + String.valueOf(id) + ")");
-		    } catch (URISyntaxException e) {
-		        throw new ODataRuntimeException("Unable to create id for entity: " + entitySetName, e);
-		    }
-	}
-
+	 public EntityCollection getData(String edmEntitySet){
+		    // ... code to determine which query to call based on entity name
+		 EntidadNuevaController ex = null;
+		 List<EntidadNueva> foos=getAllFoos();
+		    System.out.println("out  on!");
+		    EntityCollection entitySet = makeEntityCollection(foos);
+		    return entitySet;
+		}
 }

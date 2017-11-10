@@ -9,18 +9,13 @@ import javax.persistence.EntityManagerFactory;
 import org.apache.olingo.odata2.jpa.processor.api.ODataJPAContext;
 import org.apache.olingo.odata2.jpa.processor.api.ODataJPAServiceFactory;
 import org.apache.olingo.odata2.jpa.processor.api.exception.ODataJPARuntimeException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.stereotype.Component;
 
-
-import com.example.demo.rest.TestService;
 
 /**
  * @author Emmanuel Neiza
  *
  */
-
+//@CrossOrigin
 public class JPAServiceFactory extends ODataJPAServiceFactory {
 	private static final String PERSISTENCE_UNIT_NAME = "wo";
 	

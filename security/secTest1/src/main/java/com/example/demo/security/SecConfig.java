@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
 @EnableWebSecurity
@@ -32,13 +34,15 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-			.and()
+		.and()
+		.headers().frameOptions().disable()
+		.disable();/*
 			.csrf().disable()  // TODO Activar CSRF más adelante
 			.exceptionHandling()
 				.authenticationEntryPoint(authenticationEntryPoint)
 			.and()
 				.authorizeRequests()
-					.antMatchers("/public/**", "/login/**").permitAll()
+					.antMatchers("/public/**", "/login/**","/example.svc/**").permitAll()
 					.anyRequest().authenticated()
 			.and()
 				.formLogin()
@@ -49,8 +53,8 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 					.logoutSuccessHandler(logoutSuccessHandler);
 				
 		
-		http.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-		
+		http.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);*/
+		//http.addFilterBefore(new CorsFilter(), SessionManagementFilter.class); //adds your custom CorsFilter
 	}
 
 	@Override
