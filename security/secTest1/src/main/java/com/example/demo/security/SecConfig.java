@@ -35,14 +35,14 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 		http
 			.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
 		.and()
-		.headers().frameOptions().disable()
-		.disable();/*
+		/*.headers().frameOptions().disable()
+		.disable();*/
 			.csrf().disable()  // TODO Activar CSRF más adelante
 			.exceptionHandling()
 				.authenticationEntryPoint(authenticationEntryPoint)
 			.and()
 				.authorizeRequests()
-					.antMatchers("/public/**", "/login/**","/example.svc/**").permitAll()
+					.antMatchers("/public/**", "/login/**","/example.svc/**","/api/**").permitAll()
 					.anyRequest().authenticated()
 			.and()
 				.formLogin()
@@ -53,7 +53,7 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 					.logoutSuccessHandler(logoutSuccessHandler);
 				
 		
-		http.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);*/
+		http.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 		//http.addFilterBefore(new CorsFilter(), SessionManagementFilter.class); //adds your custom CorsFilter
 	}
 
@@ -66,7 +66,6 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 	public UserDetailsService userDetailsServiceBean() throws Exception {
 		return userDetailsService;
 	}
-
 
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.model.User;
@@ -28,7 +29,7 @@ public class RESTAuthenticationProvider implements AuthenticationProvider {
 
 		logger.info("Name = " + name + " ,Password = " + password);
 
-		User user = userDetailsService.loadUserByUsername(name);
+		UserDetails user = userDetailsService.loadUserByUsername(name);
 		if (user != null && password.equals(user.getPassword())) {
 			logger.info("Succesful authentication!");
 			return new UsernamePasswordAuthenticationToken(user, user.getPassword(), new ArrayList<>());
