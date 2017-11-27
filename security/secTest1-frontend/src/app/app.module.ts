@@ -6,6 +6,7 @@ import { AppRoutes } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
 import { AppComponent } from './app.component';
 import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
 import { HotTableModule } from 'ng2-handsontable';
@@ -26,7 +27,8 @@ import { ReporteComponent } from './reporte/reporte.component';
     FormsModule,
     HttpModule
   ],
-  providers: [RestClientService],
+  providers:
+  [RestClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

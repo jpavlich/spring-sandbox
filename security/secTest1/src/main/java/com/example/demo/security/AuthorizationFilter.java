@@ -22,7 +22,6 @@ class AuthorizationFilter extends OncePerRequestFilter {
 		 session.getAttribute("LOGGED_USER"));
 		//
 		/*System.out.println("##########\nRequest " + request.getMethod());
-
 		printRequest(request);*/
 		chain.doFilter(request, resp);
 	}

@@ -24,8 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
  * The default entrypoint for the JPA example datasource.
  * @author Renze de Vries
  */
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/jpa.svc/**")
+@RequestMapping(value="/jpa.svc/**")
+//,consumes={"application/xml", "application/json","text/html","application/xhtml+xml"}
 public class JPAController extends AbstractODataController {
 }

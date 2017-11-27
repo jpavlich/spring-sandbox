@@ -20,31 +20,27 @@ import com.sdl.odata.service.ODataServiceConfiguration;
 
 
 @SpringBootApplication
+/*@EnableAutoConfiguration(exclude = {HibernateJpaAutoConfiguration.class, DataSourceAutoConfiguration.class,
+        DataSourceTransactionManagerAutoConfiguration.class })*/
 @Import({
         JPADataSourceModification.class,
         ODataServiceConfiguration.class
 })
 @EntityScan("com.example.demo.model")
 @ComponentScan("com.example.demo.rest")
+@ComponentScan("com.example.demo.security")
+@ComponentScan("com.sdl.odata.datasource.jpa")
+@ComponentScan("com.sdl.odata.datasource.jpa.builders")
+@ComponentScan("com.sdl.odata.datasource.jpa.exceptions")
+@ComponentScan("com.sdl.odata.datasource.jpa.mapper")
+@ComponentScan("com.sdl.odata.datasource.jpa.query")
+@ComponentScan("com.sdl.odata.datasource.jpa.util")
 public class SecTest1Application extends SpringBootServletInitializer  {
-	@Override
+	/*@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		   return application.sources(application);
-	}
+	}*/
 	public static void main(String[] args) {
 		SpringApplication.run(SecTest1Application.class, args);
 	}
-	@Bean()
-    public ServletRegistrationBean servletRegistrationBean(){
-        return new ServletRegistrationBean(new com.stimulsoft.web.servlet.StiWebResourceServlet(),"/stimulsoft_web_resource/*");
-        
-    }
-    @Bean
-    public ServletRegistrationBean servletRegistrationBean2(){
-        return new ServletRegistrationBean(new com.stimulsoft.webdesigner.servlet.StiWebDesignerActionServlet(),"/stimulsoft_webdesigner_action");
-    }
-    @Bean
-    public ServletRegistrationBean servletRegistrationBean3(){
-        return new ServletRegistrationBean(new com.stimulsoft.webviewer.servlet.StiWebViewerActionServlet(),"/stimulsoft_webviewer_action");
-    }
 }

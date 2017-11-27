@@ -29,20 +29,18 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private RESTUserDetailsService userDetailsService;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-		.and()
-		/*.headers().frameOptions().disable()
-		.disable();*/
+			.and()
 			.csrf().disable()  // TODO Activar CSRF más adelante
 			.exceptionHandling()
 				.authenticationEntryPoint(authenticationEntryPoint)
 			.and()
 				.authorizeRequests()
-					.antMatchers("/public/**", "/login/**","/example.svc/**","/api/**").permitAll()
+					.antMatchers("/public/**", "/login/**").permitAll()
 					.anyRequest().authenticated()
 			.and()
 				.formLogin()
@@ -54,7 +52,7 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 				
 		
 		http.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-		//http.addFilterBefore(new CorsFilter(), SessionManagementFilter.class); //adds your custom CorsFilter
+		
 	}
 
 	@Override
@@ -66,6 +64,7 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 	public UserDetailsService userDetailsServiceBean() throws Exception {
 		return userDetailsService;
 	}
+
 
 	
 }

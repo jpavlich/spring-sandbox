@@ -33,6 +33,6 @@ export class ReporteComponent {
     console.log('Loading completed successfully!');
   }
 
-  constructor() {    
+  constructor() {
   }
 }
