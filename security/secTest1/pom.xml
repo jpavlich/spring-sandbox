@@ -23,6 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<slf4j.version>1.7.7</slf4j.version>
+		<sdl.version>2.5.4</sdl.version>
 	</properties>
 
 	<dependencies>
@@ -102,7 +103,12 @@
 		<dependency>
             <groupId>com.sdl</groupId>
             <artifactId>odata_edm</artifactId>
-            <version>2.5.4</version>
+            <version>${sdl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sdl</groupId>
+            <artifactId>odata_api</artifactId>
+            <version>${sdl.version}</version>
         </dependency>
          <dependency>
             <groupId>com.google.guava</groupId>
@@ -113,18 +119,42 @@
          <dependency>
             <groupId>com.sdl</groupId>
             <artifactId>odata_service</artifactId>
-            <version>2.5.4</version>
+            <version>${sdl.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sdl</groupId>
             <artifactId>odata_common</artifactId>
-            <version>2.5.4</version>
+            <version>${sdl.version}</version>
         </dependency>
            <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+       <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+		<dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		    <version>2.8.1</version>
+		</dependency>
+
+<dependency>
+  <groupId>com.fasterxml.jackson.jaxrs</groupId>
+  <artifactId>jackson-jaxrs-json-provider</artifactId>
+  <version>2.2.1</version>
+</dependency>
+
+<dependency>
+  <groupId>com.fasterxml.jackson.datatype</groupId>
+  <artifactId>jackson-datatype-joda</artifactId>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.odata4j/odata4j-dist -->
+		<dependency>
+		    <groupId>org.odata4j</groupId>
+		    <artifactId>odata4j-dist</artifactId>
+		    <version>0.7.0</version>
+		    <type>pom</type>
+		</dependency>   
 	</dependencies>
 	<build>
 		<plugins>

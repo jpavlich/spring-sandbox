@@ -25,10 +25,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import java.util.Properties;
+
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 /**
@@ -38,8 +42,9 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan
 public class JPADataSourceModification {
-	
-	
+	@Autowired
+    private Environment env;
+
 	@Autowired
 	DataSource dataSource;
 	
@@ -49,9 +54,9 @@ public class JPADataSourceModification {
 
   
 
-    /*@Value("${datasource.entitymodel}")
+    @Value("${datasource.entitymodel}")
     private String entityModel;
-*/
+
 
     @Bean
     @Primary
@@ -60,9 +65,11 @@ public class JPADataSourceModification {
                 new LocalContainerEntityManagerFactoryBean();
         localContainerEntityManagerFactoryBean.setDataSource(dataSource);
         localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        localContainerEntityManagerFactoryBean.setPackagesToScan("com.example.demo.model");
+        localContainerEntityManagerFactoryBean.setPackagesToScan(entityModel);
         localContainerEntityManagerFactoryBean.afterPropertiesSet();
-
-        return localContainerEntityManagerFactoryBean;
+        Properties createdrop=new Properties();
+        createdrop.setProperty("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
+        localContainerEntityManagerFactoryBean.setJpaProperties(createdrop);
+        return localContainerEntityManagerFactoryBean ;
     }
 }

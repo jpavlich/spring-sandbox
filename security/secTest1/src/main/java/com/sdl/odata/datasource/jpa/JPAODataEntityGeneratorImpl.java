@@ -45,12 +45,17 @@ public class JPAODataEntityGeneratorImpl implements JPAODataEntityGenerator {
         for (Class<?> jpaEntity : jpaEntities) {
             LOG.info("Generating OData entity for JPA Entity: {}", jpaEntity.getName().toString());
             Class<?> odataEntity = new EntityBuilder(jpaEntity, context).build();
-            /*Field[]lista=odataEntity.getDeclaredFields();
-            for (java.lang.reflect.Field field : lista) {
-                String fieldName = field.getName();
-                LOG.info("OData  ENTITY FIELDS: {}",fieldName);
-            
-            } */       
+            try {
+            		Field[]lista=odataEntity.getDeclaredFields();
+            		for (java.lang.reflect.Field field : lista) {
+                        String fieldName = field.getName();
+                        LOG.info("OData  ENTITY FIELDS: {}",field);
+                    
+                    }    
+            }catch(Exception e) {
+            	e.printStackTrace();
+            }
+
             LOG.info("Generated an odata entity: {}", odataEntity.getName());
             odataEntities.add(odataEntity);
         }

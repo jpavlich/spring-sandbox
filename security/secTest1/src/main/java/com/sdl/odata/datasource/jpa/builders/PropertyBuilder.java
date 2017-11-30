@@ -19,6 +19,7 @@ import com.sdl.odata.api.edm.annotations.EdmNavigationProperty;
 import com.sdl.odata.api.edm.annotations.EdmProperty;
 import com.sdl.odata.datasource.jpa.ODataJPAProperty;
 import com.sdl.odata.datasource.jpa.exceptions.JPADataMappingException;
+
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -28,11 +29,17 @@ import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ConstPool;
 import javassist.bytecode.SignatureAttribute;
 import javassist.bytecode.annotation.Annotation;
+
+import org.hibernate.type.DateType;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.beans.BeanInfo;
@@ -43,9 +50,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.function.Supplier;
 
+import java.util.function.Supplier;
 /**
  * @author Renze de Vries
  */
@@ -67,11 +78,12 @@ public class PropertyBuilder {
     }
 
     public void build() throws JPADataMappingException {
-        try {
+        try {      	
             BeanInfo beanInfo = Introspector.getBeanInfo(jpaType);
             for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
                 LOG.debug("Processing property: {}", propertyDescriptor.getName());
                 MethodInfo methodInfo = new MethodInfo(propertyDescriptor.getReadMethod());
+                //LOG.info("GET READ METHOD {}", propertyDescriptor.getReadMethod());
                 Field field=null;
                 try {
 					field=jpaType.getDeclaredField(propertyDescriptor.getName());
@@ -79,14 +91,23 @@ public class PropertyBuilder {
 				} catch (SecurityException e) {
 				}
                 if(field!=null)
-                LOG.info("methodInfo {}",field.getGenericType());
+//                LOG.info("methodInfo {}",field.getType().getSuperclass().equals(Enum.class) );
                 // - ANTIGUA CONDICION methodInfo.isValid()  methodInfo.getReturnType().getName().equals("java.lang.Class")
                 if (field!=null) {
-                    if (methodInfo.isPrimitiveType()) {
-                    	LOG.info("GENERATE FIELD");
-                        generateField(methodInfo.getReturnType(), propertyDescriptor.getName());
+                    if (methodInfo.isPrimitiveType() || field.getGenericType().equals(Long.class) || field.getGenericType().equals(Double.class) || field.getGenericType().equals(Float.class)
+                    		|| field.getGenericType().equals(Integer.class) || field.getGenericType().equals(Short.class) || field.getGenericType().equals(Character.class)  
+                    		|| field.getGenericType().equals(Character.class) || field.getGenericType().equals(Byte.class) || field.getGenericType().equals(Boolean.class)
+                    		|| field.getGenericType().equals(java.util.Date.class) || field.getGenericType().equals(Date.class)|| Enum.class.isAssignableFrom(field.getType())) {
+                    	//LOG.info("GENERATE FIELD");
+                    	/*if(field.getGenericType().equals(java.util.Date.class) || field.getGenericType().equals(Date.class)) {
+                    		  generateField(LocalDateTime.class, propertyDescriptor.getName());
+                    	}else {*/
+                    		generateField(methodInfo.getReturnType(), propertyDescriptor.getName());
+                    	//}
+                    	
+                      
                     } else {
-                    	LOG.info("GENERATE COMPLEX");
+                    	//LOG.info("GENERATE COMPLEX");
                         generateComplexRelation(propertyDescriptor, methodInfo);
                     }
                 }
@@ -131,10 +152,15 @@ public class PropertyBuilder {
                 }
                 CtClass generatedClass = pool.get(odataTypeName);
 
-                LOG.debug("Generating field of type: {}", odataTypeName);
+                LOG.info("Generating field of type: {}", odataTypeName);
                 generateField(generatedClass, propertyDescriptor.getName(),
                         () -> generateNavigationAnnotation(propertyDescriptor.getName()));
-            } else {
+            }/*else if(readMethodInfo.getReturnType().getSimpleName().equals("Date")){
+            	DateTime x;
+            	fieldType.
+                generateField(generatedClass, propertyDescriptor.getName(),
+                        () -> generateNavigationAnnotation(propertyDescriptor.getName()));
+            } */else {
                 throw new JPADataMappingException("Found a complex relation type of an unmapped JPA type");
             }
         } catch (NotFoundException e) {
@@ -150,9 +176,8 @@ public class PropertyBuilder {
             AnnotationsAttribute annotationsAttribute = s.get();
             annotationsAttribute.addAnnotation(generateJpaPropertyAnnotation());
             field.getFieldInfo().addAttribute(annotationsAttribute);
-
             generatedClass.addField(field);
-
+            LOG.info("FIELD {}",field);
             return field;
         } catch (CannotCompileException e) {
             throw new JPADataMappingException("Unable to generate field: " + propertyName, e);
@@ -162,8 +187,7 @@ public class PropertyBuilder {
     private void generateField(Class<?> propertyType, String propertyName) {
         try {
             CtClass fieldType = pool.get(propertyType.getName());
-
-            generateField(fieldType, propertyName, () -> generateAnnotation(propertyName));
+            CtField x=generateField(fieldType, propertyName, () -> generateAnnotation(propertyName));
         } catch (NotFoundException e) {
             throw new JPADataMappingException("Unable to generate field: " + propertyName, e);
         }
@@ -214,12 +238,14 @@ public class PropertyBuilder {
         private boolean oneToMany = false;
         private boolean manyToOne = false;
         private boolean collection = false;
+        private boolean manyToMany = false;
         private boolean key = false;
 
         private MethodInfo(Method method) {
             this.method = method;
 
             if (method != null) {
+            	manyToMany = method.getAnnotation(ManyToMany.class) != null;
                 column = method.getAnnotation(Column.class) != null;
                 oneToMany = method.getAnnotation(OneToMany.class) != null;
                 manyToOne = method.getAnnotation(ManyToOne.class) != null;
@@ -239,7 +265,7 @@ public class PropertyBuilder {
         }
 
         public boolean isValid() {
-            return method != null && (column || oneToMany || manyToOne || key);
+            return method != null && (column || oneToMany || manyToOne || key || manyToMany);
         }
 
         public boolean isColumn() {
@@ -260,6 +286,9 @@ public class PropertyBuilder {
 
         public boolean isKey() {
             return key;
+        }
+        public boolean isManyToMany() {
+        	return manyToMany;
         }
     }
 }

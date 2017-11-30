@@ -14,6 +14,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 
 import com.sdl.odata.datasource.jpa.JPADataSourceModification;
 import com.sdl.odata.service.ODataServiceConfiguration;
@@ -26,7 +27,7 @@ import com.sdl.odata.service.ODataServiceConfiguration;
         JPADataSourceModification.class,
         ODataServiceConfiguration.class
 })
-@EntityScan("com.example.demo.model")
+@EntityScan("com.example.demo.model2")
 @ComponentScan("com.example.demo.rest")
 @ComponentScan("com.example.demo.security")
 @ComponentScan("com.sdl.odata.datasource.jpa")
@@ -36,10 +37,10 @@ import com.sdl.odata.service.ODataServiceConfiguration;
 @ComponentScan("com.sdl.odata.datasource.jpa.query")
 @ComponentScan("com.sdl.odata.datasource.jpa.util")
 public class SecTest1Application extends SpringBootServletInitializer  {
-	/*@Override
+	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		   return application.sources(application);
-	}*/
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(SecTest1Application.class, args);
 	}

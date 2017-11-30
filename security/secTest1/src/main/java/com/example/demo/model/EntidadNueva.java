@@ -18,9 +18,13 @@
  */
 package com.example.demo.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * @author JOAQUINSUAREZ
@@ -30,7 +34,7 @@ import javax.persistence.Id;
 public class EntidadNueva {
 	@Id
 	@Column
-	private int id;
+	private Long id;
 	@Column
 	private String name;
 	@Column
@@ -40,7 +44,7 @@ public class EntidadNueva {
 	public EntidadNueva() {
 		super();
 	}
-	public EntidadNueva(int id, String name, String lastname) {
+	public EntidadNueva(Long id, String name, String lastname) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -50,13 +54,13 @@ public class EntidadNueva {
 	 * @return the id
 	 */
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**

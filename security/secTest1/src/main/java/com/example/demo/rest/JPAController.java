@@ -29,4 +29,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="/jpa.svc/**")
 //,consumes={"application/xml", "application/json","text/html","application/xhtml+xml"}
 public class JPAController extends AbstractODataController {
+	
 }
