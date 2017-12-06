@@ -16,7 +16,7 @@ export class RestClientService {
     urlSearchParams.append('username', user);
     urlSearchParams.append('password', password);
 
-    this.http.post('http://localhost:8080/login', 'username=user&password=password', { headers: headers, withCredentials: true})
+    this.http.post('http://localhost:8080/login', 'username='+user+'&password='+password, { headers: headers, withCredentials: true})
       // .map((res: Response) => res.json())
       .subscribe(
         data => {

@@ -13,6 +13,8 @@ declare var Stimulsoft: any;
 export class ReporteComponent {
   options: any;
   designer: any;
+  report: any;
+  archivo: any;
 
   ngOnInit() {
     console.log('Loading Designer view');
@@ -23,16 +25,18 @@ export class ReporteComponent {
 
     console.log('Create the report designer with specified options');
     this.designer = new Stimulsoft.Designer.StiDesigner(this.options, 'StiDesigner', false);
-    /*this.designer.import("C:\Users\EMMANUEL NEIZA\Documents\Samples-JS-master\Angular2\designer\src\reports","Report.mdc");
-    console.log('Edit report template in the designer');*/
+
+    console.log('Edit report template in the designer');
     this.designer.report = new Stimulsoft.Report.StiReport();
- 
+    this.designer.report.loadFile('http://localhost:8080/reporte/designer');
     console.log('Rendering the designer to selected element');
     this.designer.renderHtml('designer');
+
 
     console.log('Loading completed successfully!');
   }
 
-  constructor() {
+  constructor(
+  ) {
   }
 }
